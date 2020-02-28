@@ -5,5 +5,6 @@
 
 ## Logging
 
-* [payara/Payara-Server-Documentation](logging/untitled.md)
+* [System](logging/system/README.md)
+  * [payara/Payara-Server-Documentation](logging/system/untitled.md)
 

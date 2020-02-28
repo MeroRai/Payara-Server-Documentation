@@ -1,4 +1,4 @@
 # Table of contents
 
-* [payara/Payara-Server-Documentation](README.md)
+* [HealthCheck Service Asadmin Command Reference](README.md)
 

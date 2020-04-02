@@ -28,7 +28,7 @@ Enables and disables the HealthCheck service. This includes configuration for tr
 | `--historic-trace-store-size` | Integer | Sets the maximum number of health checks to store | 20 | no |
 | `--historic-trace-store-timeout` | String | Sets the time period after which a historic health check event entry is removed from visable history. The time expression should consist of a number followed by a time unit; `s` for seconds, `m` for minutes, `h` for hours or `d` for days. If no time unit is given the number specifies seconds. If the parameter is zero or unspecified there is no timeout for entries. | - | no |
 
-|  |  Enabling or disabling the health check service implicitly also enables or disables the log notifier which is the default notifier. This behaviour is similar to the replaced [`healthcheck-configure`]() command. |
+|  | Enabling or disabling the health check service implicitly also enables or disables the log notifier which is the default notifier. This behaviour is similar to the replaced [`healthcheck-configure`](./) command. |
 | :--- | :--- |
 
 
@@ -63,7 +63,7 @@ Enables and disables the HealthCheck service. Also allows configuration of the s
 | `--historicaltraceenabled` | Boolean | Enables historic checks if present | false | no |
 | `--historicaltracestoresize` | Integer | Sets the maximum number of health checks to store | 20 | no |
 
-|  |  Starting from release _4.1.1.171_, the `--notifierenabled` argument is used to enable or disable the **Log Notifier**, which is considered the _default_ notifier. Use the [`healthcheck-[NOTIFIER_NAME]-configure`]() command to enable or disable other available notifiers. |
+|  | Starting from release _4.1.1.171_, the `--notifierenabled` argument is used to enable or disable the **Log Notifier**, which is considered the _default_ notifier. Use the [`healthcheck-[NOTIFIER_NAME]-configure`](./) command to enable or disable other available notifiers. |
 | :--- | :--- |
 
 
@@ -160,48 +160,29 @@ Enables or disables the monitoring of an specific metric. The command also confi
 
 ### Command Options <a id="command-options-10"></a>
 
+| Option | Type | Description | Default | Mandatory |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--target` | String | The instance or cluster that will enable or disable its metric configuration | server | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--dynamic` | Boolean | Whether to apply the changes directly to the server/instance without a restart | false | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--enabled` | Boolean | Whether to enable or disable the metric monitoring | N/A | yes |
+| :--- | :--- | :--- | :--- | :--- |
+
+
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">Option</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Default</th>
-      <th style="text-align:left">Mandatory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>--target</code>
-      </td>
-      <td style="text-align:left">String</td>
-      <td style="text-align:left">The instance or cluster that will enable or disable its metric configuration</td>
-      <td
-      style="text-align:left">server</td>
-        <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--dynamic</code>
-      </td>
-      <td style="text-align:left">Boolean</td>
-      <td style="text-align:left">Whether to apply the changes directly to the server/instance without a
-        restart</td>
-      <td style="text-align:left">false</td>
-      <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--enabled</code>
-      </td>
-      <td style="text-align:left">Boolean</td>
-      <td style="text-align:left">Whether to enable or disable the metric monitoring</td>
-      <td style="text-align:left">N/A</td>
-      <td style="text-align:left">yes</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--service</code>
-      </td>
-      <td style="text-align:left">String</td>
-      <td style="text-align:left">
+      <th style="text-align:left"><code>--service</code>
+      </th>
+      <th style="text-align:left">String</th>
+      <th style="text-align:left">
         <p>The service metric name. One of:</p>
         <ul>
           <li><code>connection-pool</code> or <code>cp</code>
@@ -221,104 +202,46 @@ Enables or disables the monitoring of an specific metric. The command also confi
           <li><code>mp-health</code> or <code>mh</code>
           </li>
         </ul>
-      </td>
-      <td style="text-align:left">-</td>
-      <td style="text-align:left">yes</td>
+      </th>
+      <th style="text-align:left">-</th>
+      <th style="text-align:left">yes</th>
     </tr>
-    <tr>
-      <td style="text-align:left"><code>--time</code>
-      </td>
-      <td style="text-align:left">Integer</td>
-      <td style="text-align:left">The amount of time units that the service will use to periodically monitor
-        the metric</td>
-      <td style="text-align:left">5</td>
-      <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--time-unit</code>
-      </td>
-      <td style="text-align:left">TimeUnit</td>
-      <td style="text-align:left">The time unit to set the frequency of the metric monitoring. Must correspond
-        to a valid <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html"><code>java.util.concurrent.TimeUnit</code></a> value</td>
-      <td
-      style="text-align:left"><code>MINUTES</code>
-        </td>
-        <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--threshold-critical</code>
-      </td>
-      <td style="text-align:left">Integer</td>
-      <td style="text-align:left">The threshold value that this metric must surpass to generate a <b><code>CRITICAL</code></b> event.
-        A value between <em>WARNING VALUE</em> and <em>100</em> must be used. Available
-        for services <code>cp</code>, <code>cu</code>, <code>gc</code>, <code>hmu</code> and <code>mmu</code>.</td>
-      <td
-      style="text-align:left">90</td>
-        <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--threshold-warning</code>
-      </td>
-      <td style="text-align:left">Integer</td>
-      <td style="text-align:left">The threshold value that this metric must surpass to generate a <b><code>WARNING</code></b> event.
-        A value between <em>GOOD VALUE</em> and <em>CRITICAL VALUE</em> must be used.
-        Available for services <code>cp</code>, <code>cu</code>, <code>gc</code>, <code>hmu</code> and <code>mmu</code>.</td>
-      <td
-      style="text-align:left">50</td>
-        <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--threshold-good</code>
-      </td>
-      <td style="text-align:left">Integer</td>
-      <td style="text-align:left">The threshold value that this metric must surpass to generate a <b><code>GOOD</code></b> event.
-        A value between <em>0</em> and <em>WARNING VALUE</em> must be used. Available
-        for services <code>cp</code>, <code>cu</code>, <code>gc</code>, <code>hmu</code> and <code>mmu</code>.</td>
-      <td
-      style="text-align:left">0</td>
-        <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--hogging-threads-threshold</code>
-      </td>
-      <td style="text-align:left">Integer</td>
-      <td style="text-align:left">The threshold value that this metric will be compared to mark threads
-        as hogging the CPU. Only available for <code>ht</code> service.</td>
-      <td style="text-align:left">95</td>
-      <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--hogging-threads-retry-count</code>
-      </td>
-      <td style="text-align:left">Integer</td>
-      <td style="text-align:left">The number of retries that the checker service will execute in order to
-        identify a hogging thread. Only available for <code>ht</code> service.</td>
-      <td
-      style="text-align:left">3</td>
-        <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--stuck-threads-threshold</code>
-      </td>
-      <td style="text-align:left">Integer</td>
-      <td style="text-align:left">The threshold above which a thread is considered stuck. Must be 1 or greater.
-        Only available for <code>st</code> service.</td>
-      <td style="text-align:left">-</td>
-      <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--stuck-threads-threshold-unit</code>
-      </td>
-      <td style="text-align:left"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html"><code>TimeUnit</code></a>
-      </td>
-      <td style="text-align:left">The unit for the threshold for when a thread should be considered stuck.
-        Only available for <code>st</code> service.</td>
-      <td style="text-align:left">-</td>
-      <td style="text-align:left">no</td>
-    </tr>
-  </tbody>
-</table>|  |  If this command gets executed before running the [`set-healthcheck-configuration`]() command, it will succeed and the configuration will be saved, but the HealthCheck service will not be enabled. |
-| :--- | :--- |
+  </thead>
+  <tbody></tbody>
+</table>| `--time` | Integer | The amount of time units that the service will use to periodically monitor the metric | 5 | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--time-unit` | TimeUnit | The time unit to set the frequency of the metric monitoring. Must correspond to a valid [`java.util.concurrent.TimeUnit`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html) value | `MINUTES` | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--threshold-critical` | Integer | The threshold value that this metric must surpass to generate a **`CRITICAL`** event. A value between _WARNING VALUE_ and _100_ must be used. Available for services `cp`, `cu`, `gc`, `hmu` and `mmu`. | 90 | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--threshold-warning` | Integer | The threshold value that this metric must surpass to generate a **`WARNING`** event. A value between _GOOD VALUE_ and _CRITICAL VALUE_ must be used. Available for services `cp`, `cu`, `gc`, `hmu` and `mmu`. | 50 | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--threshold-good` | Integer | The threshold value that this metric must surpass to generate a **`GOOD`** event. A value between _0_ and _WARNING VALUE_ must be used. Available for services `cp`, `cu`, `gc`, `hmu` and `mmu`. | 0 | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--hogging-threads-threshold` | Integer | The threshold value that this metric will be compared to mark threads as hogging the CPU. Only available for `ht` service. | 95 | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--hogging-threads-retry-count` | Integer | The number of retries that the checker service will execute in order to identify a hogging thread. Only available for `ht` service. | 3 | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--stuck-threads-threshold` | Integer | The threshold above which a thread is considered stuck. Must be 1 or greater. Only available for `st` service. | - | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--stuck-threads-threshold-unit` | [`TimeUnit`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html) | The unit for the threshold for when a thread should be considered stuck. Only available for `st` service. | - | no |
+| :--- | :--- | :--- | :--- | :--- |
 
 
 ### Examples <a id="example-10"></a>
@@ -382,60 +305,36 @@ Enables or disables the monitoring of an specific checker. The command also conf
 
 ### Command Options <a id="command-options-2"></a>
 
+| Option | Type | Description | Default | Mandatory |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--target` | String | The instance or cluster that will enable or disable its metric configuration | server | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--dynamic` | Boolean | Whether to apply the changes directly to the server/instance without a restart | false | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--enabled` | Boolean | Whether to enable or disable the metric monitoring | N/A | yes |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--serviceName` | String | The metric service name. Must correspond to one of the values listed before | - | yes |
+| :--- | :--- | :--- | :--- | :--- |
+
+
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">Option</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Default</th>
-      <th style="text-align:left">Mandatory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>--target</code>
-      </td>
-      <td style="text-align:left">String</td>
-      <td style="text-align:left">The instance or cluster that will enable or disable its metric configuration</td>
-      <td
-      style="text-align:left">server</td>
-        <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--dynamic</code>
-      </td>
-      <td style="text-align:left">Boolean</td>
-      <td style="text-align:left">Whether to apply the changes directly to the server/instance without a
-        restart</td>
-      <td style="text-align:left">false</td>
-      <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--enabled</code>
-      </td>
-      <td style="text-align:left">Boolean</td>
-      <td style="text-align:left">Whether to enable or disable the metric monitoring</td>
-      <td style="text-align:left">N/A</td>
-      <td style="text-align:left">yes</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--serviceName</code>
-      </td>
-      <td style="text-align:left">String</td>
-      <td style="text-align:left">The metric service name. Must correspond to one of the values listed before</td>
-      <td
-      style="text-align:left">-</td>
-        <td style="text-align:left">yes</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--checkerName</code>
-      </td>
-      <td style="text-align:left">String</td>
-      <td style="text-align:left">A user determined name for easy identification of the checker. This should
+      <th style="text-align:left"><code>--checkerName</code>
+      </th>
+      <th style="text-align:left">String</th>
+      <th style="text-align:left">A user determined name for easy identification of the checker. This should
         be unique among the services you have configured, to avoid confusion on
-        the notification messages.</td>
-      <td style="text-align:left">
+        the notification messages.</th>
+      <th style="text-align:left">
         <p>Depends on the service checker. One of:</p>
         <ul>
           <li><code>CONP</code>
@@ -451,32 +350,17 @@ Enables or disables the monitoring of an specific checker. The command also conf
           <li><code>MEMM</code>
           </li>
         </ul>
-      </td>
-      <td style="text-align:left">no</td>
+      </th>
+      <th style="text-align:left">no</th>
     </tr>
-    <tr>
-      <td style="text-align:left"><code>--time</code>
-      </td>
-      <td style="text-align:left">Integer</td>
-      <td style="text-align:left">The amount of time units that the service will use to periodically monitor
-        the metric</td>
-      <td style="text-align:left">5</td>
-      <td style="text-align:left">no</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--unit</code>
-      </td>
-      <td style="text-align:left">TimeUnit</td>
-      <td style="text-align:left">The time unit to set the frequency of the metric monitoring. Must correspond
-        to a valid <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html"><code>java.util.concurrent.TimeUnit</code></a> value</td>
-      <td
-      style="text-align:left"><code>MINUTES</code>
-        </td>
-        <td style="text-align:left">no</td>
-    </tr>
-  </tbody>
-</table>|  |  If this command gets executed before running the `healthcheck-configure` command, it will succeed and the configuration will be saved, but the HealthCheck service will not be enabled. |
-| :--- | :--- |
+  </thead>
+  <tbody></tbody>
+</table>| `--time` | Integer | The amount of time units that the service will use to periodically monitor the metric | 5 | no |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--unit` | TimeUnit | The time unit to set the frequency of the metric monitoring. Must correspond to a valid [`java.util.concurrent.TimeUnit`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/TimeUnit.html) value | `MINUTES` | no |
+| :--- | :--- | :--- | :--- | :--- |
 
 
 ### Example <a id="example-2"></a>
@@ -516,7 +400,7 @@ This command only configures thresholds for the following checkers:
 | `--thresholdWarning` | Integer | The threshold value that this metric must surpass to generate a **`WARNING`** event. A value between _GOOD VALUE_ and _CRITICAL VALUE_ must be used | 50 | no |
 | `--thresholdGood` | Integer | The threshold value that this metric must surpass to generate a **`GOOD`** event. A value between _0_ and _WARNING VALUE_ must be used | 0 | no |
 
-|  |  In order to execute this command for an specific metric, the `healthcheck-configure-service` command needs to be executed first. |
+|  | In order to execute this command for an specific metric, the `healthcheck-configure-service` command needs to be executed first. |
 | :--- | :--- |
 
 
@@ -622,22 +506,17 @@ This command can be used to enable or disable a specific notifier or to change i
 
 ### Command Options <a id="command-options-14"></a>
 
+| Option | Type | Description | Default | Mandatory |
+| :--- | :--- | :--- | :--- | :--- |
+
+
 <table>
   <thead>
     <tr>
-      <th style="text-align:left">Option</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Default</th>
-      <th style="text-align:left">Mandatory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>--notifier</code>
-      </td>
-      <td style="text-align:left">String</td>
-      <td style="text-align:left">
+      <th style="text-align:left"><code>--notifier</code>
+      </th>
+      <th style="text-align:left">String</th>
+      <th style="text-align:left">
         <p>The notifier to configure. One of (case insensitive):</p>
         <ul>
           <li><code>LOG</code>
@@ -663,47 +542,27 @@ This command can be used to enable or disable a specific notifier or to change i
           <li><code>CDIEVENTBUS</code>
           </li>
         </ul>
-      </td>
-      <td style="text-align:left">-</td>
-      <td style="text-align:left">yes</td>
+      </th>
+      <th style="text-align:left">-</th>
+      <th style="text-align:left">yes</th>
     </tr>
-    <tr>
-      <td style="text-align:left"><code>--enable</code>
-      </td>
-      <td style="text-align:left">Boolean</td>
-      <td style="text-align:left">Enables or disables the notifier</td>
-      <td style="text-align:left">false</td>
-      <td style="text-align:left">Yes</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--noisy</code>
-      </td>
-      <td style="text-align:left">Boolean</td>
-      <td style="text-align:left">Sets the notifier to noisy (a.k.a verbose) or not noisy. A noisy notifier
-        includes more detailed logging information in the notifiers output.</td>
-      <td
-      style="text-align:left">-</td>
-        <td style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--dynamic</code>
-      </td>
-      <td style="text-align:left">Boolean</td>
-      <td style="text-align:left">Whether to apply the changes directly to the server/instance without a
-        restart</td>
-      <td style="text-align:left">false</td>
-      <td style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>--target</code>
-      </td>
-      <td style="text-align:left">String</td>
-      <td style="text-align:left">The instance or cluster that will be configured</td>
-      <td style="text-align:left">server</td>
-      <td style="text-align:left">no</td>
-    </tr>
-  </tbody>
-</table>### Examples <a id="example-14"></a>
+  </thead>
+  <tbody></tbody>
+</table>| `--enable` | Boolean | Enables or disables the notifier | false | Yes |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--noisy` | Boolean | Sets the notifier to noisy \(a.k.a verbose\) or not noisy. A noisy notifier includes more detailed logging information in the notifiers output. | - | No |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--dynamic` | Boolean | Whether to apply the changes directly to the server/instance without a restart | false | No |
+| :--- | :--- | :--- | :--- | :--- |
+
+
+| `--target` | String | The instance or cluster that will be configured | server | no |
+| :--- | :--- | :--- | :--- | :--- |
+
 
 To enable the log notifier for the HealthCheck Service without having to restart the server, use the following command:
 
@@ -739,7 +598,7 @@ This command can be used to enable or disable the notifier represented by the _\
        --dynamic=true
    ```
 
-2. To disable the [Hipchat notifier](/documentation/payara-server/notification-service/notifiers/hipchat-notifier.adoc) without having to restart the server, use the following command:
+2. To disable the [Hipchat notifier](https://github.com/MeroRai/Payara-Server-Documentation/tree/fbbb48a6e9e16131de3abd180b96158a6cf7a2ad/documentation/payara-server/notification-service/notifiers/hipchat-notifier.adoc) without having to restart the server, use the following command:
 
    ```text
    asadmin> healthcheck-hipchat-notifier-configure
